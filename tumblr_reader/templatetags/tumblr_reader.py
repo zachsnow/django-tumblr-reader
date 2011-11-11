@@ -106,16 +106,16 @@ def tumblr_scripts():
     return r'<script type="text/javascript" src="%sjquery.tumblr-reader.js"></script>' % settings.MEDIA_URL
 
 @register.simple_tag
-def tumblr_media_prefix():
+def tumblr_media_url():
     """
-    Prints the value of `settings.TUMBLR_READER_MEDIA_PREFIX` setting; useful
+    Prints the value of `settings.TUMBLR_READER_MEDIA_URL` setting; useful
     if you want to include Tumblr Reader javascript support in your site in
     a different way than using {% tumblr_scripts %} (for instance,
     asynchronously).
 
     Syntax:
     
-        {% tumblr_media_prefix %}
+        {% tumblr_media_url %}
     
     """
-    return settings.MEDIA_PREFIX
+    return settings.MEDIA_URL

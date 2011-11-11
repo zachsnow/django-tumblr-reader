@@ -1,4 +1,4 @@
-from django.conf import settings
+from .. import settings
 from django import template
 from django.template import TemplateSyntaxError
 
@@ -6,24 +6,26 @@ register = template.Library()
 
 class TumblrPostsNode(template.Node):
     def __init__(self, blog=None, count=None, tagged=None, callback=None):
-        self.blog = block or settings.TUMBLR_READER_BLOG
-        self.count = count or settings.TUMBLR_READER_COUNT
-        self.callback = callback or settings.TUMBLR_READER_CALLBACK
-        self.tagged = tagged or settings.TUMBLR_READER_TAGGED
+        # Default to settings in case we want to use this node from a
+        # different tag.
+        self.blog = block or settings.BLOG
+        self.count = count or settings.COUNT
+        self.callback = callback or settings.CALLBACK
+        self.tagged = tagged or settings.TAGGED
     
     def render(self, context):
         return r"""
-            <script type="text/javascript">var %s = TumblrReader.createCallback();</script>
-            <script type="text/javascript" src="http://%s.tumblr.com/api/read/json?count=%s&tags=%s">
-        """ % (callback, blog, count, tagged)
+            <script type="text/javascript">var %s = TumblrReader.createCallback("%s");</script>
+            <script type="text/javascript" src="http://%s.tumblr.com/api/read/json?callback=%s&count=%s&tags=%s">
+        """ % (callback, container, blog, callback, count, tagged)
 
 @register.simple_tag
 def tumblr_posts(
-    blog=settings.TUMBLR_READER_BLOG,
-    count=settings.TUMBLR_READER_COUNT,
-    tagged=settings.TUMBLR_READER_TAGGED,
-    callback=settings.TUMBLR_READER_CALLBACK,
-    container=settings.TUMBLR_READER_CONTAINER):
+    blog=settings.BLOG,
+    count=settings.COUNT,
+    tagged=settings.TAGGED,
+    callback=settings.CALLBACK,
+    container=settings.CONTAINER):
     """
     Embed posts from your Tumblr blog.
     
@@ -75,6 +77,11 @@ def tumblr_posts(
     except ValueError:
         raise TemplateSyntaxError('tumblr_posts: count must be an integer')
     
+    return r"""
+            <script type="text/javascript">var %s = TumblrReader.createCallback("%s");</script>
+            <script type="text/javascript" src="http://%s.tumblr.com/api/read/json?callback=%s&count=%s&tags=%s">
+        """ % (callback, container, blog, callback, count, tagged)
+
     return TumblrPostsNode(**{
         'blog': blog,
         'count': count,
@@ -82,3 +89,33 @@ def tumblr_posts(
         'callback': callback,
         'container': container
     })
+
+@register.simple_tag
+def tumblr_scripts():
+    """
+    Prints a <script></script> tag that includes Tumblr Reader javascript
+    support.  Tumblr Reader javascript support must be included on any page
+    using {% tumblr_posts %}, but you can include it any way you like; see
+    {% tumblr_media_prefix %}.
+    
+    Syntax:
+    
+        {% tumblr_scripts %}
+    
+    """
+    return r'<script type="text/javascript" src="%sjquery.tumblr-reader.js"></script>' % settings.MEDIA_URL
+
+@register.simple_tag
+def tumblr_media_prefix():
+    """
+    Prints the value of `settings.TUMBLR_READER_MEDIA_PREFIX` setting; useful
+    if you want to include Tumblr Reader javascript support in your site in
+    a different way than using {% tumblr_scripts %} (for instance,
+    asynchronously).
+
+    Syntax:
+    
+        {% tumblr_media_prefix %}
+    
+    """
+    return settings.MEDIA_PREFIX

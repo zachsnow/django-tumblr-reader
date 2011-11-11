@@ -105,6 +105,7 @@ var TumblrReader = {};
         }
         else {
             // TODO: find the correct container.
+            $container = $('body');
         }
         
         return function(blog){

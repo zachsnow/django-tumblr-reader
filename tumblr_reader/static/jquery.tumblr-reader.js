@@ -1,5 +1,16 @@
 var TumblrReader = {};
-(function(){
+(function($){
+    // TODO: use a real template library!
+    var parse = function(template, params){
+        for(var key in params){
+            if(params.hasOwnProperty(key)){
+                var re = new RegExp('\\$\\{\s*' + key + '\s*\\}', 'g'); 
+                template = template.replace(re, params[key]);
+            }
+        }
+        return $(template);
+    };
+    
     TumblrReader.createPost = function(post){
         var create = TumblrReader.createPost[post.type];
         if(!create){
@@ -12,7 +23,7 @@ var TumblrReader = {};
     TumblrReader.createPost.regular = function(post){
         var template = '';
         template += '<div class="tumblr-reader-post tumblr-reader-post-regular">';
-        template += '<div class="tumblr-reader-date"><a class="tumblr-reader-permalink" href="{url}">{date}</a></div>';
+        template += '<div class="tumblr-reader-date"><a class="tumblr-reader-permalink" href="${url}">${date}</a></div>';
         template += '<div class="tumblr-reader-title">${title}</div>';
         template += '<div class="tumblr-reader-body">${body}</div>';
         template += '<div class="tumblr-reader-tags">${tags}</div>';
@@ -26,16 +37,16 @@ var TumblrReader = {};
             url: post['url-with-slug'],
         };
         
-        return $.tmpl(template, params);
+        return parse(template, params);
     };
     
     TumblrReader.createPost.photo = function(post){
         var template = '';
         template += '<div class="tumblr-reader-post tumblr-reader-post-photo">';
-        template += '<div class="tumblr-reader-date"><a class="tumblr-reader-permalink" href="{url}">{date}</a></div>';
-        template += '<div class="tumblr-reader-photo"><img src="{photo}" /></div>';
-        template += '<div class="tumblr-reader-caption">{caption}</div>';
-        template += '<div class="tumblr-reader-tags">{tags}</div>';
+        template += '<div class="tumblr-reader-date"><a class="tumblr-reader-permalink" href="${url}">${date}</a></div>';
+        template += '<div class="tumblr-reader-photo"><img src="${photo}" /></div>';
+        template += '<div class="tumblr-reader-caption">${caption}</div>';
+        template += '<div class="tumblr-reader-tags">${tags}</div>';
         template += '</div>'
         
         var params = {
@@ -52,10 +63,10 @@ var TumblrReader = {};
     TumblrReader.createPost.quote = function(post){
         var template = '';
         template += '<div class="tumblr-reader-post tumblr-reader-post-quote">';
-        template += '<div class="tumblr-reader-date"><a class="tumblr-reader-permalink" href="{url}">{date}</a></div>';
-        template += '<div class="tumblr-reader-quote">{quote}</div>';
-        template += '<div class="tumblr-reader-source">{source}</div>';
-        template += '<div class="tumblr-reader-tags">{tags}</div>';
+        template += '<div class="tumblr-reader-date"><a class="tumblr-reader-permalink" href="${url}">${date}</a></div>';
+        template += '<div class="tumblr-reader-quote">${quote}</div>';
+        template += '<div class="tumblr-reader-source">${source}</div>';
+        template += '<div class="tumblr-reader-tags">${tags}</div>';
         template += '</div>'
         
         var params = {
@@ -72,9 +83,9 @@ var TumblrReader = {};
     TumblrReader.createPost.link = function(post){
         var template = '';
         template += '<div class="tumblr-reader-post tumblr-reader-post-link">';
-        template += '<div class="tumblr-reader-date"><a class="tumblr-reader-permalink" href="{url}">{date}</a></div>';
-        template += '<div class="tumblr-reader-link"><a href="{url}">{text}</a></div>';
-        template += '<div class="tumblr-reader-tags">{tags}</div>';
+        template += '<div class="tumblr-reader-date"><a class="tumblr-reader-permalink" href="${url}">${date}</a></div>';
+        template += '<div class="tumblr-reader-link"><a href="${url}">${text}</a></div>';
+        template += '<div class="tumblr-reader-tags">${tags}</div>';
         template += '</div>'
         
         var params = {
@@ -91,11 +102,12 @@ var TumblrReader = {};
     TumblrReader.createPosts = function(posts){
         var $posts = [];
         for(var i = 0; i < posts.length; i++){
-            $post = TumblrReader.createPost(posts[i]);
+            var $post = TumblrReader.createPost(posts[i]);
             if($post){
-                $posts.append($post);
+                $posts.push($post);
             }
         }
+        return $posts;
     };
     
     TumblrReader.createCallback = function(containerId){
@@ -110,8 +122,9 @@ var TumblrReader = {};
         
         return function(blog){
             var $posts = TumblrReader.createPosts(blog.posts);
-            $container.append($posts);
+            for(var i = 0; i < $posts.length; i++){
+                $container.append($posts[i]);
+            };
         };
     };
-    
-})();
+})(jQuery);

@@ -22,10 +22,4 @@ CALLBACK = getattr(settings, 'TUMBLR_READER_CALLBACK', 'tumblrReaderCallback')
 CONTAINER = getattr(settings, 'TUMBLR_READER_CONTAINER', '') 
 
 # The url at which Tumblr Reader static files will be served. 
-MEDIA_URL = getattr(settings, 'TUMBLR_READER_MEDIA_URL', os.path.join(settings.MEDIA_URL, '/tumblr/')
-                    
-# The directory from which Tumblr Reader static files will be served when
-# using the development server; for production you should ensure that this
-# directory is served at `settings.TUMBLR_READER_MEDA_URL` by your static file
-# web server! 
-MEDIA_ROOT = getattr(settings, 'TUMBLR_READER_MEDIA_ROOT', os.path.join(settings.MEDIA_ROOT, '/tumblr/'))
+MEDIA_PREFIX = getattr(settings, 'TUMBLR_READER_MEDIA_PREFIX', os.path.join(settings.MEDIA_URL, '/tumblr/'))

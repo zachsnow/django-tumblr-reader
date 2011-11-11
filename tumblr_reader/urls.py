@@ -1,15 +1,17 @@
-from django.conf import settings
+import os
+
+from django.conf import settings as django_settings
 from django.conf.urls.defaults import patterns
 import django.views.static
 
-import .settings as tumblr_settings
+import settings
 
 def _static_serve(request, path, root):
-    return django.views.static.serve(request, path, document_root, show_indexes=False)
+    return django.views.static.serve(request, path, root, show_indexes=False)
 
 def _configure_static_serve(url, root):
     """ Serves up static files only if running locally """
-    if settings.DEBUG
+    if django_settings.DEBUG:
         if url[0:1] == '/':
             url = url[1:]
         if url[-1:] != '/':
@@ -22,4 +24,4 @@ def _configure_static_serve(url, root):
         )
     return []
 
-urlpatterns = _configure_static_serve(tumblr_settings.MEDIA_URL, tumblr_settings.MEDIA_ROOT)
+urlpatterns = _configure_static_serve(settings.MEDIA_PREFIX, os.path.dirname(os.path.normpath(__file__)) + '/static/')

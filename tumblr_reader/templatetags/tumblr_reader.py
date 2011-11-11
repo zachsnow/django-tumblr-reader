@@ -16,7 +16,7 @@ class TumblrPostsNode(template.Node):
     def render(self, context):
         return r"""
             <script type="text/javascript">var %s = TumblrReader.createCallback("%s");</script>
-            <script type="text/javascript" src="http://%s.tumblr.com/api/read/json?callback=%s&count=%s&tags=%s">
+            <script type="text/javascript" src="http://%s.tumblr.com/api/read/json?callback=%s&count=%s&tags=%s"></script>
         """ % (callback, container, blog, callback, count, tagged)
 
 @register.simple_tag
@@ -79,7 +79,7 @@ def tumblr_posts(
     
     return r"""
             <script type="text/javascript">var %s = TumblrReader.createCallback("%s");</script>
-            <script type="text/javascript" src="http://%s.tumblr.com/api/read/json?callback=%s&count=%s&tags=%s">
+            <script type="text/javascript" src="http://%s.tumblr.com/api/read/json?callback=%s&count=%s&tags=%s"></script>
         """ % (callback, container, blog, callback, count, tagged)
 
     return TumblrPostsNode(**{
@@ -103,19 +103,19 @@ def tumblr_scripts():
         {% tumblr_scripts %}
     
     """
-    return r'<script type="text/javascript" src="%sjquery.tumblr-reader.js"></script>' % settings.MEDIA_URL
+    return r'<script type="text/javascript" src="%sjquery.tumblr-reader.js"></script>' % settings.MEDIA_PREFIX
 
 @register.simple_tag
-def tumblr_media_url():
+def tumblr_media_prefix():
     """
-    Prints the value of `settings.TUMBLR_READER_MEDIA_URL` setting; useful
+    Prints the value of `settings.TUMBLR_READER_MEDIA_PREFIX` setting; useful
     if you want to include Tumblr Reader javascript support in your site in
     a different way than using {% tumblr_scripts %} (for instance,
     asynchronously).
 
     Syntax:
     
-        {% tumblr_media_url %}
+        {% tumblr_media_prefix %}
     
     """
-    return settings.MEDIA_URL
+    return settings.MEDIA_PREFIX

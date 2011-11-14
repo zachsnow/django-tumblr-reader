@@ -1,6 +1,6 @@
-=============
-Tumblr Reader
-=============
+====================
+Django Tumblr Reader
+====================
 
 Django Tumblr Reader is a simple Django application that defines template tags
 for embedding your Tumblr blog in your Django website.  An example of Django
@@ -128,12 +128,12 @@ of CSS classes for easy styling (see jquery.tumblr-reader.css for an example
 the details all of these classes).  However, if this structure does not meet your
 needs, it can be easily overridden.
 
-Each type of Tumblr post has a corresponding entry in the `$.tumblrReader.parsers`
+Each type of Tumblr post has a corresponding entry in the `$.fn.tumblrReader.parsers`
 dictionary.  These entries are parsing functions that take a JSON representation
 of a Tumblr post and return a jQuery object or DOM node.  For instance, to 
 change how the "photo" type of post is rendered::
 
-    $.tumblrReader.parsers.photo = function(post){
+    $.fn.tumblrReader.parsers.photo = function(post){
         var $post = $("<h1>OH HAI I'M A PHOTO!");
         return $post;
     };
@@ -143,10 +143,13 @@ The Tumblr post types that are currently supported are *regular*, *quote*,
 Tumblr adds new ones) simply add a parser for that type.
 
 In addition, a few "sub-parsers" are used by the default post parsers, they
-are `$.tumblrReader.parsers.date` and $.tumblrReader.parsers.tags`.  If all
+are `$.tumblrReader.parsers.date` and $.fn.tumblrReader.parsers.tags`.  If all
 you want to change is how those components of every post are rendered by default,
 simply override those parsers.  These parsers also take a JSON representation of
-a post, but only render the date and tags, respectively.
+a post, but should only render the date and tags, respectively.
+
+I'm not too happy with how rendering works, but it gets the job done for my
+current use cases.
 
 Contact
 -------

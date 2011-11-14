@@ -42,17 +42,17 @@
 * Usage:
 *
 *   To load your blog (http://yourblog.tumblr.com in the following) into a
-*   container having a particular id (in this case 'your-container-id'):
+*   container (in this case an element with id 'your-container'):
 *
-*   $.tumblrReader({
-*       blog: 'yourblog',
-*       container: 'your-container-id'    
+*   $('#your-container').tumblrReader({
+*       blog: 'yourblog',    
 *   });
 *
 *   This returns a jqXHR object, in case you want to add any callbacks (success,
-*   complete, and so on).
+*   complete, and so on).  It also means that chaining works perhaps differently
+*   than you'd expect.
 *
-*   Additional parameters:
+*   Additional options:
 *       `count`: the number of posts to retrieve.
 *       `tagged`: retrieve only those posts that have this tag.
 *
@@ -63,11 +63,10 @@
 *
 *******************************************************************************/
 (function($){
-    $.tumblrReader = function(options){
+    $.fn.tumblrReader = function(options){
         options = $.extend($.tumblrReader.options, options);
         
-        var container = options.container || 'body';
-        var $container = $(container);
+        var $container = this;
         
         var url = parse(templates.endpoint, options);
         return $.getJSON(url, function(blog){
@@ -82,7 +81,7 @@
         });
     };
     
-    $.tumblrReader.options = {
+    $.fn.tumblrReader.options = {
         count: 10,
         tagged: '',
     };
@@ -102,10 +101,10 @@
         endpoint: 'http://${blog}.tumblr.com/api/read/json?num=${count}&tagged=${tagged}&callback=?'
     };
     
-    $.tumblrReader.parsers = {};
+    $.fn.tumblrReader.parsers = {};
     var parsers = $.tumblrReader.parsers;
     
-    $.tumblrReader.parsers.regular = function(post){
+    $.fn.tumblrReader.parsers.regular = function(post){
         var template = '';
         template += '<div class="tumblr-reader-post tumblr-reader-post-regular">';
         template += templates.date;
@@ -125,7 +124,7 @@
         return parse(template, params);
     };
     
-    $.tumblrReader.parsers.photo = function(post){
+    $.fn.tumblrReader.parsers.photo = function(post){
         var template = '';
         template += '<div class="tumblr-reader-post tumblr-reader-post-photo">';
         template += templates.date;
@@ -145,7 +144,7 @@
         return parse(template, params);
     };
     
-    $.tumblrReader.parsers.quote = function(post){
+    $.fn.tumblrReader.parsers.quote = function(post){
         var template = '';
         template += '<div class="tumblr-reader-post tumblr-reader-post-quote">';
         template += templates.date;
@@ -165,7 +164,7 @@
         return parse(template, params);
     };
     
-    $.tumblrReader.parsers.link = function(post){
+    $.fn.tumblrReader.parsers.link = function(post){
         var template = '';
         template += '<div class="tumblr-reader-post tumblr-reader-post-link">';
         template += templates.date;
@@ -184,7 +183,7 @@
         return parse(template, params);
     };
     
-    $.tumblrReader.parsers.date = function(post){
+    $.fn.tumblrReader.parsers.date = function(post){
         var timestamp = post['unix-timestamp'];
         var date = new Date(parseInt(timestamp, 10) * 1000);
         var month = date.getMonth() + 1;
@@ -193,7 +192,7 @@
         return month + '/' + day + '/' + year;
     };
     
-    $.tumblrReader.parsers.tags = function(post){
+    $.fn.tumblrReader.parsers.tags = function(post){
         var tags = post['tags'];
         $.each(tags, function(i, tag){
             tags[i] = '#' + tag;

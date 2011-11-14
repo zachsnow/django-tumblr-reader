@@ -1,5 +1,6 @@
 import json
 
+from django.conf import settings as django_settings
 from django import template
 from django.template import TemplateSyntaxError
 
@@ -57,7 +58,7 @@ def tumblr_posts(
     return script.format(
         container=container,
         json=json.dumps({
-             'blog': blog
+             'blog': blog,
              'count': count,
              'tagged': tagged
         })
@@ -77,7 +78,7 @@ def tumblr_scripts():
         {% tumblr_scripts %}
     
     """
-    return r'<script type="text/javascript" src="%sjquery.tumblr-reader.js"></script>' % settings.MEDIA_PREFIX
+    return r'<script type="text/javascript" src="%sjquery.tumblr-reader.js"></script>' % django_settings.STATIC_URL
 
 @register.simple_tag
 def tumblr_styles():
@@ -90,7 +91,7 @@ def tumblr_styles():
         {% tumblr_styles %}
     
     """
-    return r'<link rel="stylesheet" href="%stumblr_reader/static/jquery.tumblr-reader.css" type="text/css" />' % settings.STATIC_URL
+    return r'<link rel="stylesheet" href="%stumblr_reader/static/jquery.tumblr-reader.css" type="text/css" />' % django_settings.STATIC_URL
 
 @register.simple_tag
 def tumblr_static_url():

@@ -35,8 +35,8 @@
 *   in that API's limitations.
 *
 *   It really doesn't depend too much on jQuery; in fact, it just uses $,
-*   $.each, $.extend, and $.append.  So it should be pretty straightforward to
-*   port to another JS library.
+*   $.each, $.extend, $.fn.append, and $.getJSON.  So it should be pretty
+*   straightforward to port to another JS library.
 *
 ********************************************************************************
 * Usage:
@@ -64,11 +64,14 @@
 *******************************************************************************/
 (function($){
     $.fn.tumblrReader = function(options){
-        options = $.extend($.tumblrReader.options, options);
+        options = options || {};
+        options = $.extend({}, $.fn.tumblrReader.options, options);
         
         var $container = this;
         
         var url = parse(templates.endpoint, options);
+        
+        alert(url);
         return $.getJSON(url, function(blog){
             var posts = createPosts(blog.posts);
             var $posts = $('<div class="tumblr-reader-posts"></div>');
@@ -92,7 +95,7 @@
             var re = new RegExp('\\$\\{\s*' + key + '\s*\\}', 'g'); 
             template = template.replace(re, value);
         });
-        return $(template);
+        return template;
     };    
     
     var templates = {
@@ -102,7 +105,7 @@
     };
     
     $.fn.tumblrReader.parsers = {};
-    var parsers = $.tumblrReader.parsers;
+    var parsers = $.fn.tumblrReader.parsers;
     
     $.fn.tumblrReader.parsers.regular = function(post){
         var template = '';
@@ -121,7 +124,7 @@
             url: post['url-with-slug'],
         };
         
-        return parse(template, params);
+        return $(parse(template, params));
     };
     
     $.fn.tumblrReader.parsers.photo = function(post){
@@ -141,7 +144,7 @@
             url: post['url-with-slug'],
         };
         
-        return parse(template, params);
+        return $(parse(template, params));
     };
     
     $.fn.tumblrReader.parsers.quote = function(post){
@@ -161,7 +164,7 @@
             url: post['url-with-slug'],
         };
         
-        return parse(template, params);
+        return $(parse(template, params));
     };
     
     $.fn.tumblrReader.parsers.link = function(post){
@@ -180,7 +183,7 @@
             permalink: post['url-with-slug'],
         };
         
-        return parse(template, params);
+        return $(parse(template, params));
     };
     
     $.fn.tumblrReader.parsers.date = function(post){

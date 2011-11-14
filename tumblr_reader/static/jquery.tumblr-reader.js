@@ -22,45 +22,51 @@
 * THE SOFTWARE.
 *******************************************************************************/
 /*******************************************************************************
-* About:
-*
-*   Tumblr Reader is a simple library aimed at easily embedding Tumblr
-*   blogs.  It writes in simple, structured HTML that can be styled however you
-*   like; the included jquery.tumblr-reader.css is a very simple set of
-*   rules to get you started.  If the rendered HTML is not adequate for your
-*   needs you can override how different post types and relevant post data
-*   are rendered.
-*
-*   Tumblr Reader makes use of the Tumblr API version 1, and therefore shares
-*   in that API's limitations.
-*
-*   It really doesn't depend too much on jQuery; in fact, it just uses $,
-*   $.each, $.extend, $.fn.append, and $.getJSON.  So it should be pretty
-*   straightforward to port to another JS library.
-*
-********************************************************************************
-* Usage:
-*
-*   To load your blog (http://yourblog.tumblr.com in the following) into a
-*   container (in this case an element with id 'your-container'):
-*
-*   $('#your-container').tumblrReader({
-*       blog: 'yourblog',    
-*   });
-*
-*   This returns a jqXHR object, in case you want to add any callbacks (success,
-*   complete, and so on).  It also means that chaining works perhaps differently
-*   than you'd expect.
-*
-*   Additional options:
-*       `count`: the number of posts to retrieve.
-*       `tagged`: retrieve only those posts that have this tag.
-*
-*   For more information, including details about changing how posts are
-*   rendered, see:
-*
-*       http://bitbucket.org/zachsnow/django-tumblr-reader/
-*
+=======================
+jquery.tumblr-reader.js
+=======================
+
+Tumblr Reader is a simple library aimed at easily embedding Tumblr
+blogs.  It writes in simple, structured HTML that can be styled however you
+like; the included ``jquery.tumblr-reader.css`` is a very simple set of
+rules to get you started.  If the rendered HTML is not adequate for your
+needs you can override how different post types and relevant post data
+are rendered.
+ 
+Tumblr Reader makes use of the Tumblr API version 1, and therefore shares
+in that API's limitations.
+ 
+It really doesn't depend too much on jQuery; in fact, it just uses ``$``,
+``$.each``, ``$.extend``, ``$.fn.append``, and ``$.getJSON``.  So it should
+be pretty straightforward to port to another JS library.
+ 
+Usage
+-----
+
+To load your blog (``http://yourblog.tumblr.com`` in the following) into a
+container (in this case an element with id ``your-container``)::
+ 
+    $('#your-container').tumblrReader({
+        blog: 'yourblog',    
+    });
+ 
+This returns a ``jqXHR`` object, in case you want to add any callbacks
+(``success``, ``complete``, and so on).  It also means that chaining works
+perhaps differently than you'd expect.
+
+Additional options::
+ 
+    ``count``
+        the number of posts to retrieve.
+        
+    ``tagged``
+        retrieve only those posts that have this tag.
+ 
+For more information, including details about changing how posts are
+rendered, see::
+ 
+    http://bitbucket.org/zachsnow/django-tumblr-reader/
+
 *******************************************************************************/
 (function($){
     $.fn.tumblrReader = function(options){

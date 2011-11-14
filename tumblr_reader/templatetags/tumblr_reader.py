@@ -17,7 +17,7 @@ def tumblr_posts(
     """
     Embed posts from your Tumblr blog.
     
-    Syntax:
+    Syntax::
     
         {% tumblr_posts %}
         {% tumblr_posts blog="blog" %}
@@ -28,21 +28,21 @@ def tumblr_posts(
     You can use any combination of these arguments, but you should use each
     not more than once.
     
-    `from`:
-        Defaults to `settings.TUMBLR_READER_BLOG`
+    ``from``:
+        Defaults to ``settings.TUMBLR_READER_BLOG``.
         
-    `count`:
-        Defaults to `settings.TUMBLR_READER_COUNT`
+    ``count``:
+        Defaults to ``settings.TUMBLR_READER_COUNT``.
         
-    `tagged`:
-        Defaults to `settings.TUMBLR_READER_TAGGED`
+    ``tagged``:
+        Defaults to ``settings.TUMBLR_READER_TAGGED``.
 
-    `container`:
-        Defaults to `settings.TUMBLR_READER_CONTAINER`
+    ``container``:
+        Defaults to ``settings.TUMBLR_READER_CONTAINER``.
 
         You shouldn't need to specify this unless you are embedding a blog
         or blogs multiple times on a single page; in that case you almost
-        certainly want to use different container ids for each embed:
+        certainly want to use different container ids for each embed::
             
             {% tumblr_posts container="someId" %}
             {% tumblr_posts container="anotherId" %}
@@ -68,12 +68,12 @@ def tumblr_posts(
 @register.simple_tag
 def tumblr_scripts():
     """
-    Prints a <script></script> tag that includes Tumblr Reader javascript
+    Prints a ``<script></script>`` tag that includes Tumblr Reader javascript
     support.  Tumblr Reader javascript support must be included on any page
-    using {% tumblr_posts %}, but you can include it any way you like; see
-    {% tumblr_media_prefix %}.
+    using ``tumblr_posts``, but you can include it any way you like; see
+    the ``tumblr_media_prefix`` template tag.
     
-    Syntax:
+    Syntax::
     
         {% tumblr_scripts %}
     
@@ -84,9 +84,9 @@ def tumblr_scripts():
 def tumblr_styles():
     """
     Prints a <link></link> tag that includes some default Tumblr Reader styling.
-    This is optional.
+    Using this CSS this is optional.
     
-    Syntax:
+    Syntax::
     
         {% tumblr_styles %}
     
@@ -98,10 +98,10 @@ def tumblr_static_url():
     """
     Prints the absolute URL of the Tumblr Reader static files directory; useful
     if you want to include Tumblr Reader javascript support in your site in
-    a different way than using {% tumblr_scripts %} (for instance,
+    a different way than using the ``tumblr_scripts`` template tag (for instance,
     asynchronously).
 
-    Syntax:
+    Syntax::
     
         {% tumblr_static_url %}
     

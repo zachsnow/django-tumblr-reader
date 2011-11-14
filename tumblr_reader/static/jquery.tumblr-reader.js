@@ -22,7 +22,7 @@
 * THE SOFTWARE.
 *******************************************************************************/
 /*******************************************************************************
-* Description:
+* About:
 *
 *   Tumblr Reader is a simple library aimed at easily embedding Tumblr
 *   blogs.  It writes in simple, structured HTML that can be styled however you

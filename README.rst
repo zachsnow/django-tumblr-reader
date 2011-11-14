@@ -134,7 +134,7 @@ of a Tumblr post and return a jQuery object or DOM node.  For instance, to
 change how the "photo" type of post is rendered::
 
     $.fn.tumblrReader.parsers.photo = function(post){
-        var $post = $("<h1>OH HAI I'M A PHOTO!");
+        var $post = $("<h1>OH HAI I'M A PHOTO!"</h1>);
         return $post;
     };
     

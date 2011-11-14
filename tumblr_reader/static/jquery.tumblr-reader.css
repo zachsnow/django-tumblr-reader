@@ -1,6 +1,6 @@
 /* Outermost container. */
 .tumblr-reader-posts {
-    
+    color: #202020;
 }
 
 /* All posts. */
@@ -13,10 +13,11 @@
 .tumblr-reader-date {
     float: left;
     font-size: 15px;
+    color: #a0a0a0;
 }
 
 .tumblr-reader-tags {
-    color: #a0b5b3;
+    color: #a0a0a0;
     font-size: 15px;
     float: right;
 }
@@ -63,8 +64,7 @@
 }
 
 /* Photo posts. */
-.tumblr-reader-post.tumblr-reader-post-photo {
-    
+.tumblr-reader-post.tumblr-reader-post-photo {    
 }
 
 .tumblr-reader-photo {
@@ -74,7 +74,6 @@
 .tumblr-reader-photo img {
     display: block;
     max-width: 100%;
-    margin: 10px auto;
 }
 
 .tumblr-reader-caption {

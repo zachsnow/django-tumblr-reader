@@ -1,30 +1,17 @@
-from .. import settings
+import json
+
 from django import template
 from django.template import TemplateSyntaxError
 
-register = template.Library()
+from .. import settings
 
-class TumblrPostsNode(template.Node):
-    def __init__(self, blog=None, count=None, tagged=None, callback=None):
-        # Default to settings in case we want to use this node from a
-        # different tag.
-        self.blog = block or settings.BLOG
-        self.count = count or settings.COUNT
-        self.callback = callback or settings.CALLBACK
-        self.tagged = tagged or settings.TAGGED
-    
-    def render(self, context):
-        return r"""
-            <script type="text/javascript">var %s = TumblrReader.createCallback("%s");</script>
-            <script type="text/javascript" src="http://%s.tumblr.com/api/read/json?callback=%s&count=%s&tags=%s"></script>
-        """ % (callback, container, blog, callback, count, tagged)
+register = template.Library()
 
 @register.simple_tag
 def tumblr_posts(
     blog=settings.BLOG,
     count=settings.COUNT,
     tagged=settings.TAGGED,
-    callback=settings.CALLBACK,
     container=settings.CONTAINER):
     """
     Embed posts from your Tumblr blog.
@@ -35,7 +22,6 @@ def tumblr_posts(
         {% tumblr_posts blog="blog" %}
         {% tumblr_posts count=10 %}
         {% tumblr_posts tagged="tag 1, tag 2" %}
-        {% tumblr_posts callback="fn" %}
         {% tumblr_posts container="id" %}
     
     You can use any combination of these arguments, but you should use each
@@ -50,45 +36,33 @@ def tumblr_posts(
     `tagged`:
         Defaults to `settings.TUMBLR_READER_TAGGED`
 
-    `callback`:
-        Defaults to `settings.TUMBLR_READER_CALLBACK`
-        
-        You shouldn't need to specify this unless you are embedding a blog
-        or blogs multiple times on a single page; in that case you should be
-        sure to use different callbacks for each embed:
-        
-            {% tumblr_posts callback="someCallback" %}
-            {% tumblr_posts callback="anotherCallback" %}
-
     `container`:
         Defaults to `settings.TUMBLR_READER_CONTAINER`
 
         You shouldn't need to specify this unless you are embedding a blog
-        or blogs multiple times on a single page; in that case you should
-        be sure to use different container ids for each embed:
+        or blogs multiple times on a single page; in that case you almost
+        certainly want to use different container ids for each embed:
             
             {% tumblr_posts container="someId" %}
             {% tumblr_posts container="anotherId" %}
         
     """
-    # Parsing
+    # Not strictly necessary, just here to catch errors earlier.
     try:
         count = int(count)
     except ValueError:
         raise TemplateSyntaxError('tumblr_posts: count must be an integer')
     
-    return r"""
-            <script type="text/javascript">var %s = TumblrReader.createCallback("%s");</script>
-            <script type="text/javascript" src="http://%s.tumblr.com/api/read/json?callback=%s&count=%s&tags=%s"></script>
-        """ % (callback, container, blog, callback, count, tagged)
+    script = '<script type="text/javascript">$.tumblrReader.read({json});</script>'
+    return script.format(
+        json=json.dumps({
+             'blog': blog
+             'count': count,
+             'container': container,
+             'tagged': tagged
+        })
+    )
 
-    return TumblrPostsNode(**{
-        'blog': blog,
-        'count': count,
-        'tagged': tagged,
-        'callback': callback,
-        'container': container
-    })
 
 @register.simple_tag
 def tumblr_scripts():
@@ -104,6 +78,19 @@ def tumblr_scripts():
     
     """
     return r'<script type="text/javascript" src="%sjquery.tumblr-reader.js"></script>' % settings.MEDIA_PREFIX
+
+@register.simple_tag
+def tumblr_styles():
+    """
+    Prints a <link></link> tag that includes some default Tumblr Reader styling.
+    This is optional.
+    
+    Syntax:
+    
+        {% tumblr_styles %}
+    
+    """
+    return r'<link rel="stylesheet" href="%jquery.tumblr-reader.css" type="text/css" />' % settings.MEDIA_PREFIX
 
 @register.simple_tag
 def tumblr_media_prefix():

@@ -15,11 +15,11 @@ To install Django Tumblr Reader, grab the source::
 
     hg clone https://bitbucket.org/zachsnow/django-tumblr-reader
 
-Then just add `tumblr_reader` to your `INSTALLED_APPS`, and be sure that in
-production your serve django-tumblr-reader/tumblr_reader/static/; for more
-information check out the django.contrib.staticfiles application.  For testing
+Then just add ``tumblr_reader`` to your ``INSTALLED_APPS``, and be sure that in
+production your serve ``django-tumblr-reader/tumblr_reader/static/``; for more
+information check out the ``django.contrib.staticfiles`` application.  For testing
 with the debug server you just need to make sure that you have
-`"django.contrib.staticfiles"` in your `INSTALLED_APPS`.
+``django.contrib.staticfiles`` in your ``INSTALLED_APPS``.
 
 Django Tumblr Reader is really just a lightweight wrapper around
 jquery.tumblr-reader.js, which comes packaged with Django Tumblr Reader,
@@ -28,7 +28,7 @@ and which can be easily used without Django.
 Usage
 -----
 
-The primary way of using Django Tumblr Reader is through the `tumblr_posts`
+The primary way of using Django Tumblr Reader is through the ``tumblr_posts``
 template tag::
 
     {% load tumblr_reader %}
@@ -51,7 +51,7 @@ filter)::
 
     {% tumblr_posts tagged="beer" %}
     
-To write the retrieved posts into a particular container, by id:
+To write the retrieved posts into a particular container, by id::
 
     {% tumblr_posts container="a-random-element" %}
     
@@ -66,11 +66,11 @@ there are two additional template tags::
     {% tumblr_scripts %}
     {% tumblr_styles %}
     
-These render `<script></script>` and `<style></style>` tags for those files,
-based on the value of `settings.TUMBLR_READER_MEDIA_PREFIX`.
+These render ``<script></script>`` and ``<style></style>`` tags for those files,
+based on the value of ``settings.TUMBLR_READER_MEDIA_PREFIX``.
 
 Finally, if you for some reason need access to the value of
-`settings.TUMBLR_READER_MEDIA_PREFIX` from within a template (perhaps to load
+``settings.TUMBLR_READER_MEDIA_PREFIX`` from within a template (perhaps to load
 jquery.tumblr-reader.js asynchronously) you can use::
 
     {% tumblr_media_prefix %}
@@ -78,36 +78,36 @@ jquery.tumblr-reader.js asynchronously) you can use::
 Settings
 --------
 
-`TUMBLR_READER_BLOG`::
+``TUMBLR_READER_BLOG``
     
     Tumblr blog to embed in your site; you should change this to your blog.
-    For instance, if your blog is at "http://iheartdjango.tumblr.com" you
-    should set this to `"iheartdjango"`.
+    For instance, if your blog is at ``http://iheartdjango.tumblr.com`` you
+    should set this to ``"iheartdjango"``.
     
-    This is the default blog embedded by the `tumblr_posts` template tag.
-    The default value is `"django-tumblr-reader"`. 
+    This is the default blog embedded by the ``tumblr_posts`` template tag.
+    The default value is ``"django-tumblr-reader"``. 
 
-`TUMBLR_READER_COUNT`::
+``TUMBLR_READER_COUNT``
 
     This is the default number of posts that will be embedded by the
-    `tumblr_posts` template tag.  The default is 10.
+    ``tumblr_posts`` template tag.  The default is 10.
 
-`TUMBLR_READER_TAGGED`::
+``TUMBLR_READER_TAGGED``
 
-    Posts with this tag will be embedded by the `tumblr_posts` template tag
-    by default.  The default value is `""`, which means that all posts will be
+    Posts with this tag will be embedded by the ``tumblr_posts`` template tag
+    by default.  The default value is ``""``, which means that all posts will be
     embedded.
 
-`TUMBLR_READER_CONTAINER`::
+``TUMBLR_READER_CONTAINER``
     
-    The default container id into which posts embedded by the `tumblr_posts`
+    The default container id into which posts embedded by the ``tumblr_posts``
     template tag should be written; the default is the empty string, which means
     that posts will be written into the same container as the template tag.
  
-`TUMBLR_READER_MEDIA_PREFIX`::
+``TUMBLR_READER_MEDIA_PREFIX``
     
     The url prefix at which Tumblr Reader static files will be served;
-    defaults to `os.path.join(settings.MEDIA_URL, "/tumblr-reader/")`.
+    defaults to ``os.path.join(settings.MEDIA_URL, "/tumblr-reader/")``.
 
 Rendering
 ---------
@@ -117,7 +117,7 @@ of CSS classes for easy styling (see jquery.tumblr-reader.css for an example
 the details all of these classes).  However, if this structure does not meet your
 needs, it can be easily overridden.
 
-Each type of Tumblr post has a corresponding entry in the `$.fn.tumblrReader.parsers`
+Each type of Tumblr post has a corresponding entry in the ``$.fn.tumblrReader.parsers``
 dictionary.  These entries are parsing functions that take a JSON representation
 of a Tumblr post and return a jQuery object or DOM node.  For instance, to 
 change how the "photo" type of post is rendered::
@@ -132,7 +132,7 @@ The Tumblr post types that are currently supported are *regular*, *quote*,
 Tumblr adds new ones) simply add a parser for that type.
 
 In addition, a few "sub-parsers" are used by the default post parsers, they
-are `$.tumblrReader.parsers.date` and $.fn.tumblrReader.parsers.tags`.  If all
+are ``$.tumblrReader.parsers.date`` and $.fn.tumblrReader.parsers.tags``.  If all
 you want to change is how those components of every post are rendered by default,
 simply override those parsers.  These parsers also take a JSON representation of
 a post, but should only render the date and tags, respectively.

@@ -2,9 +2,9 @@
 Tumblr Reader
 =============
 
-Django Tumblr Reader is a simple Django application that adds template tags for
-embedding your Tumblr blog in your Django website.  An example of Django Tumblr
-Reader in action can be found at::
+Django Tumblr Reader is a simple Django application that defines template tags
+for embedding your Tumblr blog in your Django website.  An example of Django
+Tumblr Reader in action can be found at::
 
     http://zachsnow.com/demos/django-tumblr-reader.html
 

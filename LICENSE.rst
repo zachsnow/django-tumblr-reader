@@ -1,5 +1,7 @@
+====================
 django-tumblr-reader
---------------------
+====================
+
 Copyright (c) 2011 Zach Snow <z@zachsnow.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy

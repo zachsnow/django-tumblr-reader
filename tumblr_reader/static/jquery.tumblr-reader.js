@@ -71,7 +71,6 @@
         
         var url = parse(templates.endpoint, options);
         
-        alert(url);
         return $.getJSON(url, function(blog){
             var posts = createPosts(blog.posts);
             var $posts = $('<div class="tumblr-reader-posts"></div>');

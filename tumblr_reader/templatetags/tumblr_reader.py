@@ -90,19 +90,19 @@ def tumblr_styles():
         {% tumblr_styles %}
     
     """
-    return r'<link rel="stylesheet" href="%jquery.tumblr-reader.css" type="text/css" />' % settings.MEDIA_PREFIX
+    return r'<link rel="stylesheet" href="%stumblr_reader/static/jquery.tumblr-reader.css" type="text/css" />' % settings.STATIC_URL
 
 @register.simple_tag
-def tumblr_media_prefix():
+def tumblr_static_url():
     """
-    Prints the value of `settings.TUMBLR_READER_MEDIA_PREFIX` setting; useful
+    Prints the absolute URL of the Tumblr Reader static files directory; useful
     if you want to include Tumblr Reader javascript support in your site in
     a different way than using {% tumblr_scripts %} (for instance,
     asynchronously).
 
     Syntax:
     
-        {% tumblr_media_prefix %}
+        {% tumblr_static_url %}
     
     """
-    return settings.MEDIA_PREFIX
+    return '%stumblr_reader/static/' % settings.STATIC_URL

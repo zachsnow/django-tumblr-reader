@@ -16,21 +16,10 @@ To install Django Tumblr Reader, grab the source::
     hg clone https://bitbucket.org/zachsnow/django-tumblr-reader
 
 Then just add `tumblr_reader` to your `INSTALLED_APPS`, and be sure that in
-production your serve django-tumblr-reader/tumblr_reader/static/ at
-`settings.TUMBLR_READER_MEDIA_PREFIX`; for instance, in Apache you might do
-something like::
-
-    Static /static/tumblr-reader/ /path/to/django-tumblr-reader/tumblr_reader/static/
-
-For testing with the debug server you can include `tumblr_reader.urls` in your
-urlconf; be sure to include it at `settings.TUMBLR_READER_MEDIA_PREFIX`::
-
-    import tumblr_reader.urls
-    
-    urlpatterns = patterns('',
-         ...,
-         url('^static/tumblr-reader/', include(tumblr_reader.urls))
-     )
+production your serve django-tumblr-reader/tumblr_reader/static/; for more
+information check out the django.contrib.staticfiles application.  For testing
+with the debug server you just need to make sure that you have
+`"django.contrib.staticfiles"` in your `INSTALLED_APPS`.
 
 Django Tumblr Reader is really just a lightweight wrapper around
 jquery.tumblr-reader.js, which comes packaged with Django Tumblr Reader,

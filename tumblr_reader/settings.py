@@ -17,6 +17,3 @@ TAGGED = getattr(settings, 'TUMBLR_READER_TAGGED', '')
 # should be written; the default is the empty string, which means that
 # posts will be written into the same container as the template tag.
 CONTAINER = getattr(settings, 'TUMBLR_READER_CONTAINER', '') 
-
-# The url at which Tumblr Reader static files will be served. 
-MEDIA_PREFIX = getattr(settings, 'TUMBLR_READER_MEDIA_PREFIX', os.path.join(settings.MEDIA_URL, '/tumblr/'))

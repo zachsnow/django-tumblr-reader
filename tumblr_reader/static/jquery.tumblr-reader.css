@@ -27,6 +27,7 @@
 }
 
 .tumblr-reader-title {
+    clear: left;
     font-size: 20px;
 }
 
@@ -71,6 +72,23 @@
 
 .tumblr-reader-source:before {
     content: "–"
+}
+
+/* Conversation posts. */
+.tumblr-reader-post.tumblr-reader-conversation {
+    
+}
+
+.tumblr-reader-phrase {
+    padding-bottom: 5px;
+}
+
+.tumblr-reader-name {
+    color: #a0a0a0;
+}
+
+.tumblr-reader-name:after {
+    content: ": "
 }
 
 /* Photo posts. */

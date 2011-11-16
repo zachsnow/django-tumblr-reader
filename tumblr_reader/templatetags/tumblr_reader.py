@@ -91,7 +91,7 @@ def tumblr_styles():
         {% tumblr_styles %}
     
     """
-    return r'<link rel="stylesheet" href="%stumblr_reader/static/jquery.tumblr-reader.css" type="text/css" />' % django_settings.STATIC_URL
+    return r'<link rel="stylesheet" href="%sjquery.tumblr-reader.css" type="text/css" />' % django_settings.STATIC_URL
 
 @register.simple_tag
 def tumblr_static_url():

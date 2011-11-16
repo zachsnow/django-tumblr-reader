@@ -67,13 +67,13 @@ there are two additional template tags::
     {% tumblr_styles %}
     
 These render ``<script></script>`` and ``<style></style>`` tags for those files,
-based on the value of ``settings.TUMBLR_READER_MEDIA_PREFIX``.
+based on the value of ``settings.STATIC_URL``.
 
-Finally, if you for some reason need access to the value of
-``settings.TUMBLR_READER_MEDIA_PREFIX`` from within a template (perhaps to load
-jquery.tumblr-reader.js asynchronously) you can use::
+Finally, if you for some reason need access to the path to these static files
+from within a template (perhaps to load ``jquery.tumblr-reader.js``
+asynchronously) you can use::
 
-    {% tumblr_media_prefix %}
+    {% tumblr_static_url %}
 
 Settings
 --------

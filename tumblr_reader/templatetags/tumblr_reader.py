@@ -78,7 +78,7 @@ def tumblr_scripts():
         {% tumblr_scripts %}
     
     """
-    return r'<script type="text/javascript" src="%sjquery.tumblr-reader.js"></script>' % django_settings.STATIC_URL
+    return r'<script type="text/javascript" src="%stumblr_reader/jquery.tumblr-reader.js"></script>' % django_settings.STATIC_URL
 
 @register.simple_tag
 def tumblr_styles():
@@ -91,7 +91,7 @@ def tumblr_styles():
         {% tumblr_styles %}
     
     """
-    return r'<link rel="stylesheet" href="%sjquery.tumblr-reader.css" type="text/css" />' % django_settings.STATIC_URL
+    return r'<link rel="stylesheet" href="%stumblr_reader/jquery.tumblr-reader.css" type="text/css" />' % django_settings.STATIC_URL
 
 @register.simple_tag
 def tumblr_static_url():
@@ -106,4 +106,4 @@ def tumblr_static_url():
         {% tumblr_static_url %}
     
     """
-    return '%stumblr_reader/static/' % settings.STATIC_URL
+    return '%stumblr_reader/' % settings.STATIC_URL

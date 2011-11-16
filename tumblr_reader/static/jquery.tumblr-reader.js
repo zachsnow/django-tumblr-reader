@@ -172,6 +172,46 @@ rendered, see::
         return $(parse(template, params));
     };
     
+    $.fn.tumblrReader.parsers.phrase = function(phrase){
+        var template = '';
+        
+        template += '<div class="tumblr-reader-phrase">';
+        template += '<span class="tumblr-reader-name">${name}</span>';
+        template += '<span class="tumblr-reader-saying">${saying}</span>';
+        template += '</div>';
+        
+        var params = {
+            name: phrase.name,
+            saying: phrase.phrase
+        };
+        
+        return parse(template, params);
+    };
+
+    $.fn.tumblrReader.parsers.conversation = function(post){
+        var template = '';
+        template += '<div class="tumblr-reader-post tumblr-reader-post-conversation">';
+        template += templates.date;
+        template += templates.tags;
+        template += '<div class="tumblr-reader-title">${title}</div>';
+        
+        var phrases = post['conversation'] || [];
+        $.each(phrases, function(i, phrase){
+            template += $.fn.tumblrReader.parsers.phrase(phrase);
+        });
+        
+        template += '</div>'
+        
+        var params = {
+            title: post['conversation-title'],
+            tags: parsers.tags(post),
+            date: parsers.date(post),
+            url: post['url-with-slug'],
+        };
+        
+        return $(parse(template, params));
+    };
+    
     $.fn.tumblrReader.parsers.link = function(post){
         var template = '';
         template += '<div class="tumblr-reader-post tumblr-reader-post-link">';

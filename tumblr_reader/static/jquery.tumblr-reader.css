@@ -53,14 +53,24 @@
 }
 
 /* Quote posts. */
-.tumblr-reader-post.tumblr-reader-quote {
-    padding-left: 40px;
-    padding-right: 40px;
-    font-style: italic;
+.tumblr-reader-post.tumblr-reader-post-quote {
 }
 
 .tumblr-reader-quote {
+    padding-left: 40px;
+    padding-right: 40px;
+    font-style: italic;
     clear: both;
+}
+
+.tumblr-reader-source {
+    padding-right: 40px;
+    float: right;
+    clear: both;
+}
+
+.tumblr-reader-source:before {
+    content: "–"
 }
 
 /* Photo posts. */

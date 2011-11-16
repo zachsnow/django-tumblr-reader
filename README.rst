@@ -128,14 +128,19 @@ change how the "photo" type of post is rendered::
     };
     
 The Tumblr post types that are currently supported are *regular*, *quote*,
-*link*, and *photo*.  If there are other types you need to support (or if
+*link*, *photo*, and *conversation*.  **Not supported** are types *audio*
+and *video*.  If there are other types you need to support (or if
 Tumblr adds new ones) simply add a parser for that type.
 
 In addition, a few "sub-parsers" are used by the default post parsers, they
-are ``$.tumblrReader.parsers.date`` and $.fn.tumblrReader.parsers.tags``.  If all
-you want to change is how those components of every post are rendered by default,
+are ``$.fn.tumblrReader.parsers.date`` and ``$.fn.tumblrReader.parsers.tags``. 
+If all you want to change is how those components of every post are rendered by default,
 simply override those parsers.  These parsers also take a JSON representation of
 a post, but should only render the date and tags, respectively.
+
+Finally, the "sub-parser" ``$.fn.tumblrReader.parsers.phrase`` is used to
+render each phrase in a conversation; it takes an individual phrase, not an
+entire post.
 
 I'm not too happy with how rendering works, but it gets the job done for my
 current use cases.

@@ -2,18 +2,35 @@
 Django Tumblr Reader
 ====================
 
-Django Tumblr Reader is a simple Django application that defines template tags
+Django Tumblr Reader is a simple, reusable Django application that defines template tags
 for embedding your Tumblr blog in your Django website.  An example of Django
 Tumblr Reader in action can be found at::
 
     http://zachsnow.com/demos/django-tumblr-reader/
+    
+Django Tumblr Reader is really simple (<i>read: feature-poor</i>), and kind
+of unfinished; make of it what you will.
 
 Installation
 ------------
 
+**NOTE** Django Tumblr Reader requires Django *trunk* (in particular it depends
+on recent upgrades to the ``simple_tag`` template tag helper).  So first grab
+that::
+    
+    svn co https://code.djangoproject.com/svn/django/trunk/
+    
+Alternatively, install it with ``pip``::
+
+    pip install -e svn+https://code.djangoproject.com/svn/django/trunk/
+
 To install Django Tumblr Reader, grab the source::
 
     hg clone https://bitbucket.org/zachsnow/django-tumblr-reader
+
+Alternatively, install it with ``pip``::
+
+    pip install -e hg+https://bitbucket.org/zachsnow/django-tumblr-reader/
 
 Then just add ``tumblr_reader`` to your ``INSTALLED_APPS``, and be sure that in
 production your serve ``django-tumblr-reader/tumblr_reader/static/``; for more

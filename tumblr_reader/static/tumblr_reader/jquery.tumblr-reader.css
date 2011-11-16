@@ -12,13 +12,14 @@
 
 .tumblr-reader-date {
     float: left;
-    font-size: 15px;
+    font-size: 11px;
+    padding-bottom: 5px;
     color: #a0a0a0;
 }
 
 .tumblr-reader-tags {
     color: #a0a0a0;
-    font-size: 15px;
+    font-size: 11px;
     float: right;
 }
 
@@ -28,7 +29,8 @@
 
 .tumblr-reader-title {
     clear: left;
-    font-size: 20px;
+    font-size: 16px;
+    padding-bottom: 5px;
 }
 
 /* Link posts. */
@@ -44,7 +46,7 @@
 }
 
 .tumblr-reader-link {
-    font-size: 20px;
+    font-size: 16px;
 }
 
 .tumblr-reader-link:after {
@@ -80,11 +82,10 @@
 }
 
 .tumblr-reader-phrase {
-    padding-bottom: 5px;
 }
 
 .tumblr-reader-name {
-    color: #a0a0a0;
+    font-weight: bold;
 }
 
 .tumblr-reader-name:after {

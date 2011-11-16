@@ -97,8 +97,8 @@ rendered, see::
     // TODO: use a real template library!
     var parse = function(template, params){
         $.each(params, function(key, value){
-            var re = new RegExp('\\$\\{\s*' + key + '\s*\\}', 'g'); 
-            template = template.replace(re, value);
+            var re = new RegExp('\\$\\{\\s*' + key + '\\s*\\}', 'g'); 
+            template = template.replace(re, value || '');
         });
         return template;
     };    
@@ -217,11 +217,11 @@ rendered, see::
         template += '<div class="tumblr-reader-post tumblr-reader-post-link">';
         template += templates.date;
         template += templates.tags;
-        template += '<div class="tumblr-reader-link"><a href="${url}">${text}</a></div>';
+        template += '<div class="tumblr-reader-link"><a href="${linkUrl}">${text}</a></div>';
         template += '</div>'
         
         var params = {
-            text: post['link-text'],
+            text: post['link-text'] || post['link-url'],
             linkUrl: post['link-url'],
             tags: parsers.tags(post),
             date: parsers.date(post),

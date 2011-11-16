@@ -54,7 +54,7 @@ def tumblr_posts(
     except ValueError:
         raise TemplateSyntaxError('tumblr_posts: count must be an integer')
     
-    script = '<script type="text/javascript">$("#{container}").tumblrReader({json});</script>'
+    script = '<script type="text/javascript">$(function(){{ $("#{container}").tumblrReader({json}); }});</script>'
     return script.format(
         container=container,
         json=json.dumps({

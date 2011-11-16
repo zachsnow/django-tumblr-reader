@@ -201,7 +201,7 @@ rendered, see::
     };
     
     $.fn.tumblrReader.parsers.tags = function(post){
-        var tags = post['tags'];
+        var tags = post['tags'] || [];
         $.each(tags, function(i, tag){
             tags[i] = '#' + tag;
         });

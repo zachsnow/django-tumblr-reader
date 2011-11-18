@@ -27,10 +27,12 @@ Alternatively, install it with ``pip``::
 To install Django Tumblr Reader, grab the source::
 
     hg clone https://bitbucket.org/zachsnow/django-tumblr-reader
+    git clone https://github.com/zachsnow/django-tumblr-reader.git
 
 Alternatively, install it with ``pip``::
 
     pip install -e hg+https://bitbucket.org/zachsnow/django-tumblr-reader/
+    pip install -e git+https://github.com/zachsnow/django-tumblr-reader.git
 
 Then just add ``tumblr_reader`` to your ``INSTALLED_APPS``, and be sure that in
 production your serve ``django-tumblr-reader/tumblr_reader/static/``; for more

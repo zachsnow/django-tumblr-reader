@@ -8,31 +8,19 @@ Tumblr Reader in action can be found at::
 
     http://zachsnow.com/demos/django-tumblr-reader/
     
-Django Tumblr Reader is really simple (<i>read: feature-poor</i>), and kind
+Django Tumblr Reader is really simple (*read: feature-poor*), and kind
 of unfinished; make of it what you will.
 
 Installation
 ------------
 
-**NOTE** Django Tumblr Reader requires Django *trunk* (in particular it depends
-on recent upgrades to the ``simple_tag`` template tag helper).  So first grab
-that::
-    
-    svn co https://code.djangoproject.com/svn/django/trunk/
-    
-Alternatively, install it with ``pip``::
-
-    pip install -e svn+https://code.djangoproject.com/svn/django/trunk/
-
 To install Django Tumblr Reader, grab the source::
 
-    hg clone https://bitbucket.org/zachsnow/django-tumblr-reader
     git clone https://github.com/zachsnow/django-tumblr-reader.git
 
 Alternatively, install it with ``pip``::
 
-    pip install -e hg+https://bitbucket.org/zachsnow/django-tumblr-reader/
-    pip install -e git+https://github.com/zachsnow/django-tumblr-reader.git
+    pip install git+https://github.com/zachsnow/django-tumblr-reader.git
 
 Then just add ``tumblr_reader`` to your ``INSTALLED_APPS``, and be sure that in
 production your serve ``django-tumblr-reader/tumblr_reader/static/``; for more
@@ -42,7 +30,7 @@ with the debug server you just need to make sure that you have
 
 Django Tumblr Reader is really just a lightweight wrapper around
 jquery.tumblr-reader.js, which comes packaged with Django Tumblr Reader,
-and which can be easily used without Django.
+and which can be used without Django, if you prefer.
  
 Usage
 -----
@@ -146,12 +134,12 @@ change how the "photo" type of post is rendered::
         return $post;
     };
     
-The Tumblr post types that are currently supported are *regular*, *quote*,
-*link*, *photo*, and *conversation*.  **Not supported** are types *audio*
-and *video*.  If there are other types you need to support (or if
-Tumblr adds new ones) simply add a parser for that type.
+The Tumblr post types that are currently supported are ``regular``, ``quote``,
+``link``, ``photo``, and ``conversation``.  **Not supported** are types ``audio``
+and ``video``, just because I didn't need them  If there are other types you
+need to support (or if Tumblr adds new ones) simply add a parser for that type.
 
-In addition, a few "sub-parsers" are used by the default post parsers, they
+In addition, a few "sub-parsers" are used by the default post parsers; they
 are ``$.fn.tumblrReader.parsers.date`` and ``$.fn.tumblrReader.parsers.tags``. 
 If all you want to change is how those components of every post are rendered by default,
 simply override those parsers.  These parsers also take a JSON representation of

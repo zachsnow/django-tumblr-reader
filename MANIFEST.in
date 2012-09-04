@@ -1,0 +1,2 @@
+include *.rst
+recursive-include tumblr_reader/static *
